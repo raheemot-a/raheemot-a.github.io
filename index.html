@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amodu Raheemot — Executive Virtual Assistant</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0D1B2A;
+    --navy-mid: #1C2F45;
+    --gold: #C9A84C;
+    --gold-light: #E8C97A;
+    --cream: #F8F4EE;
+    --cream-dark: #EDE8DF;
+    --text-dark: #0D1B2A;
+    --text-mid: #3D5068;
+    --text-muted: #7A8C9E;
+    --white: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(13,27,42,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(201,168,76,0.2);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 5% 5rem;
+    gap: 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(201,168,76,0.12);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    right: 5%;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    border: 0.5px solid rgba(201,168,76,0.08);
+    pointer-events: none;
+  }
+
+  .hero-text { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-light);
+    margin-bottom: 2rem;
+  }
+
+  .hero-desc {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.7);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.85rem 2rem;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    padding: 0.85rem 2rem;
+    border: 0.5px solid rgba(255,255,255,0.3);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-photo {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .photo-frame {
+    width: 380px;
+    height: 460px;
+    position: relative;
+  }
+
+  .photo-border-decoration {
+    position: absolute;
+    top: -16px; right: -16px;
+    width: 100%;
+    height: 100%;
+    border: 0.5px solid rgba(201,168,76,0.4);
+    pointer-events: none;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--navy-mid);
+    border: 0.5px solid rgba(201,168,76,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  /* Replace .photo-placeholder with this when you have a real photo:
+     <img src="your-photo.jpg" alt="Amodu Raheemot" style="width:100%;height:100%;object-fit:cover;" />
+  */
+
+  .photo-placeholder-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-placeholder-icon svg { width: 36px; height: 36px; stroke: var(--gold); fill: none; }
+
+  .photo-placeholder p {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--gold);
+    color: var(--navy);
+    padding: 0.9rem 1.2rem;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+
+  .stats-bar {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 2.5rem 5%;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 1rem;
+    border-right: 0.5px solid var(--cream-dark);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  section { padding: 6rem 5%; }
+
+  .section-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-eyebrow::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 500;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.6);
+    max-width: 540px;
+    line-height: 1.8;
+  }
+
+  #services { background: var(--navy); }
+  .services-header { margin-bottom: 4rem; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201,168,76,0.15);
+  }
+
+  .service-card {
+    background: var(--navy);
+    padding: 2.5rem 2rem;
+    transition: background 0.3s;
+  }
+
+  .service-card:hover { background: var(--navy-mid); }
+
+  .service-icon { margin-bottom: 1.5rem; }
+  .service-icon svg { width: 28px; height: 28px; stroke: var(--gold); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+
+  .service-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .service-desc {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.75;
+  }
+
+  #about {
+    background: var(--cream);
+    color: var(--text-dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  #about .section-eyebrow { color: var(--navy-mid); }
+  #about .section-eyebrow::after { background: var(--navy-mid); }
+  #about .section-title { color: var(--navy); }
+
+  .about-text {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+  }
+
+  .cert-block {
+    background: var(--white);
+    border: 0.5px solid var(--cream-dark);
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .cert-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .cert-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--navy);
+  }
+
+  .cert-org { font-size: 0.88rem; color: var(--text-muted); }
+
+  .about-tools { padding-top: 1rem; }
+
+  .tools-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .tools-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tool-tag {
+    background: var(--cream-dark);
+    color: var(--navy);
+    padding: 0.4rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 0.5px solid rgba(13,27,42,0.12);
+  }
+
+  #experience { background: var(--navy-mid); }
+
+  .exp-grid {
+    margin-top: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: rgba(201,168,76,0.1);
+  }
+
+  .exp-card { background: var(--navy-mid); padding: 2.5rem; }
+
+  .exp-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
+  }
+
+  .exp-org { font-size: 0.88rem; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 0.2rem; }
+
+  .exp-period {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .exp-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+
+  .exp-list li {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    padding-left: 1rem;
+    position: relative;
+  }
+
+  .exp-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-size: 0.75rem;
+  }
+
+  #contact {
+    background: var(--gold);
+    color: var(--navy);
+    text-align: center;
+    padding: 5rem 5%;
+  }
+
+  #contact .section-eyebrow {
+    color: var(--navy-mid);
+    justify-content: center;
+  }
+
+  #contact .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--navy-mid);
+  }
+
+  #contact .section-eyebrow::after { background: var(--navy-mid); }
+  #contact .section-title { color: var(--navy); }
+
+  .contact-desc {
+    font-size: 1rem;
+    color: rgba(13,27,42,0.7);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    line-height: 1.8;
+  }
+
+  .contact-details {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .contact-item { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+
+  .contact-item-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(13,27,42,0.5);
+  }
+
+  .contact-item-value { font-size: 0.92rem; font-weight: 500; color: var(--navy); }
+
+  .btn-dark {
+    background: var(--navy);
+    color: var(--gold);
+    padding: 0.9rem 2.2rem;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+
+  .btn-dark:hover { background: var(--navy-mid); }
+
+  footer {
+    background: var(--navy);
+    text-align: center;
+    padding: 1.5rem 5%;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.3);
+    border-top: 0.5px solid rgba(201,168,76,0.1);
+  }
+
+  .avail-dot {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 1.5rem;
+  }
+
+  .avail-dot::before {
+    content: '';
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76,175,80,0.25);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 2px rgba(76,175,80,0.25); }
+    50% { box-shadow: 0 0 0 5px rgba(76,175,80,0.1); }
+  }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-photo { display: none; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .services-grid { grid-template-columns: 1fr 1fr; }
+    #about { grid-template-columns: 1fr; gap: 3rem; }
+    .exp-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Amodu Raheemot</a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Executive Virtual Assistant</p>
+    <h1 class="hero-name">Amodu<br>Raheemot</h1>
+    <p class="hero-title">Your remote operations partner</p>
+    <p class="hero-desc">I help busy executives and growing teams stay organised, responsive, and ahead — managing inboxes, schedules, documents, and logistics with speed and discretion.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Work with me</a>
+      <a href="#services" class="btn-outline">View services</a>
+    </div>
+    <p class="avail-dot">Available for full-time remote roles &amp; contracts</p>
+  </div>
+  <div class="hero-photo">
+    <div class="photo-frame">
+      <div class="photo-placeholder">
+        <!-- TO ADD YOUR PHOTO: delete the div above and replace with:
+             <img src="photo.jpg" alt="Amodu Raheemot" style="width:100%;height:100%;object-fit:cover;" />
+        -->
+        <div class="photo-placeholder-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+            <circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <p>Add your photo here</p>
+      </div>
+      <div class="photo-border-decoration"></div>
+      <div class="photo-badge">Lagos, Nigeria<br>Remote-Ready</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-number">2+</div>
+    <div class="stat-label">Years experience</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">40</div>
+    <div class="stat-label">Hrs/week available</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">10+</div>
+    <div class="stat-label">Tools mastered</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">100%</div>
+    <div class="stat-label">Remote-ready</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <p class="section-eyebrow">What I do</p>
+    <h2 class="section-title">Services</h2>
+    <p class="section-subtitle">End-to-end administrative support so you can focus on what only you can do.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Email &amp; Inbox Management</h3>
+      <p class="service-desc">Zero-inbox systems, priority filtering, professional replies, and correspondence management so nothing slips through.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2"/>
+          <path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Calendar &amp; Schedule Management</h3>
+      <p class="service-desc">Meeting coordination, time-blocking, and schedule optimisation — no double-bookings, no conflicts.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="16" y1="13" x2="8" y2="13"/>
+          <line x1="16" y1="17" x2="8" y2="17"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Document Preparation</h3>
+      <p class="service-desc">Editing, formatting, and producing polished documents, reports, and presentations to your exact specifications.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Recruitment Coordination</h3>
+      <p class="service-desc">End-to-end talent sourcing — local and international — candidate screening, and interview scheduling.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Travel &amp; Logistics</h3>
+      <p class="service-desc">Flight bookings, itinerary planning, cross-border deliveries, and errand coordination — handled accurately and on time.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="m21 21-4.35-4.35"/>
+        </svg>
+      </div>
+      <h3 class="service-name">Research &amp; Reporting</h3>
+      <p class="service-desc">Online research compiled into clear, structured reports to support faster, better-informed decisions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div>
+    <p class="section-eyebrow">About me</p>
+    <h2 class="section-title">Tech-savvy. Reliable. Proactive.</h2>
+    <p class="about-text">I'm a Computer Science graduate from Caleb University (2024) with hands-on experience supporting executives, coordinating operations, and delivering at speed — remotely and in-person.</p>
+    <p class="about-text">I trained at Fab Secretarial Services managing international clients, and I hold an Executive VA certification from SheLeads Africa. My edge is combining a technical background with sharp administrative instincts — I anticipate needs before they become problems.</p>
+    <p class="about-text">Fluent in English. Comfortable across Microsoft 365, Google Workspace, Notion, Trello, Canva, and AI productivity tools. Based in Lagos, Nigeria — working across any time zone.</p>
+    <div class="cert-block">
+      <p class="cert-label">Certification</p>
+      <p class="cert-title">Executive Virtual Assistant Certification</p>
+      <p class="cert-org">SheLeads Africa · 2025</p>
+    </div>
+  </div>
+  <div class="about-tools">
+    <p class="section-eyebrow" style="color: var(--navy-mid);">Tools &amp; platforms</p>
+    <p class="tools-label">Productivity &amp; communication</p>
+    <div class="tools-grid" style="margin-bottom: 1.2rem;">
+      <span class="tool-tag">Microsoft Word</span>
+      <span class="tool-tag">Excel</span>
+      <span class="tool-tag">PowerPoint</span>
+      <span class="tool-tag">Outlook</span>
+      <span class="tool-tag">Microsoft Teams</span>
+    </div>
+    <p class="tools-label">Google Workspace</p>
+    <div class="tools-grid" style="margin-bottom: 1.2rem;">
+      <span class="tool-tag">Gmail</span>
+      <span class="tool-tag">Google Docs</span>
+      <span class="tool-tag">Google Sheets</span>
+      <span class="tool-tag">Google Drive</span>
+      <span class="tool-tag">Google Meet</span>
+    </div>
+    <p class="tools-label">Project &amp; design</p>
+    <div class="tools-grid" style="margin-bottom: 1.2rem;">
+      <span class="tool-tag">Notion</span>
+      <span class="tool-tag">Trello</span>
+      <span class="tool-tag">Slack</span>
+      <span class="tool-tag">Zoom</span>
+      <span class="tool-tag">Canva</span>
+      <span class="tool-tag">ChatGPT</span>
+    </div>
+    <p class="tools-label">Technical background</p>
+    <div class="tools-grid">
+      <span class="tool-tag">Python (basic)</span>
+      <span class="tool-tag">Data analysis</span>
+      <span class="tool-tag">BSc Computer Science</span>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-eyebrow">Work history</p>
+  <h2 class="section-title">Experience</h2>
+  <p class="section-subtitle">Real-world administrative and operational experience across local and international clients.</p>
+  <div class="exp-grid">
+    <div class="exp-card">
+      <h3 class="exp-role">Administrative &amp; Virtual Assistant</h3>
+      <p class="exp-org">Fab Secretarial Services</p>
+      <p class="exp-period">Lagos, Nigeria · 2024 – 2026</p>
+      <ul class="exp-list">
+        <li>Edited, formatted, and prepared documents and business correspondence for local and international clients</li>
+        <li>Managed executive calendars and coordinated client meetings with clear communication between parties</li>
+        <li>Supported end-to-end talent recruitment — sourcing, screening, and interview scheduling</li>
+        <li>Coordinated cross-border deliveries and international logistics with accuracy and timeliness</li>
+        <li>Booked flights and arranged travel ensuring cost-efficiency and zero scheduling conflicts</li>
+        <li>Maintained confidential client records and handled sensitive data with full discretion</li>
+      </ul>
+    </div>
+    <div class="exp-card">
+      <h3 class="exp-role">Freelance Virtual Assistant</h3>
+      <p class="exp-org">Independent Contractor</p>
+      <p class="exp-period">Remote · 2023 – Present</p>
+      <ul class="exp-list">
+        <li>Provided remote admin support to small business owners — inboxes, calendars, and correspondence</li>
+        <li>Prepared and formatted business documents, reports, and presentations to client specifications</li>
+        <li>Conducted online research and compiled structured reports to support client decisions</li>
+        <li>Managed social media scheduling and content coordination across multiple platforms</li>
+        <li>Built strong client relationships through consistent communication and on-time delivery</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="section-eyebrow">Get in touch</p>
+  <h2 class="section-title">Ready to work together?</h2>
+  <p class="contact-desc">I'm actively looking for full-time remote VA and EA opportunities. Let's talk about how I can support your team.</p>
+  <a href="mailto:rahamodu1@gmail.com" class="btn-dark">Send me an email</a>
+  <div class="contact-details">
+    <div class="contact-item">
+      <span class="contact-item-label">Email</span>
+      <span class="contact-item-value">rahamodu1@gmail.com</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Phone / WhatsApp</span>
+      <span class="contact-item-value">+234 904 929 0499</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Location</span>
+      <span class="contact-item-value">Lagos, Nigeria</span>
+    </div>
+    <div class="contact-item">
+      <span class="contact-item-label">Availability</span>
+      <span class="contact-item-value">Full-time · 40 hrs/week</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Amodu Raheemot · Executive Virtual Assistant · Lagos, Nigeria
+</footer>
+
+</body>
+</html>
